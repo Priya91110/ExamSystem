@@ -1,0 +1,64 @@
+<!-- templates/app1/instructions.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Instructions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0">Welcome, {{ student_name }}</h4>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+                </form>
+            </div>
+
+            <h2 class="text-center mb-3">Exam Instructions</h2>
+
+            <ul class="list-group mb-4">
+                <li class="list-group-item">
+                    <strong>Total Questions and Marks:</strong> The exam consists of 100 multiple-choice questions, with 1 mark awarded for each correct answer. There is no negative marking.
+                </li>
+                <li class="list-group-item">
+                    <strong>Time Limit:</strong> You will have a total of 120 minutes (2 hours) to complete the exam. The timer will start once you begin.
+                </li>
+                <li class="list-group-item">
+                    <strong>Submission:</strong> Ensure you submit your answers before the timer runs out. Unsubmitted responses will not be evaluated.
+                </li>
+                <li class="list-group-item">
+                    <strong>No External Help:</strong> Use of books, mobile phones, calculators, or any external help is strictly prohibited during the exam.
+                </li>
+                <li class="list-group-item">
+                    <strong>Technical Requirements:</strong> Make sure you have a stable internet connection. In case of disconnection, re-login promptly to continue the exam.
+                </li>
+            </ul>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="test" class="form-label">Choose Test:</label>
+                    <select name="test" id="test" class="form-select" required>
+                        <option value="">-- Select a subject --</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="c">C</option>
+                        <option value="cpp">C++</option>
+                        <option value="tally">Tally</option>
+                        <option value="pgdca">PGDCA</option>
+                        <option value="dca">DCA</option>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Start Test</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
