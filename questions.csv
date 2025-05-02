@@ -1,0 +1,4 @@
+text,option_a,option_b,option_c,option_d,correct_answer,subject
+What is the output of print(2**3)?,6,8,9,12,B,python
+Which keyword is used to define a function in Python?,function,define,def,func,C,python
+Which language is platform-independent?,C,Python,Java,HTML,C,java

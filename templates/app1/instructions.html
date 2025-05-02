@@ -37,7 +37,7 @@
                 </li>
             </ul>
 
-            <form method="post">
+            <form method="post" action="{% url 'start_exam' %}">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="test" class="form-label">Choose Test:</label>
