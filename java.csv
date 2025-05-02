@@ -1,0 +1,6 @@
+text,option_a,option_b,option_c,option_d,correct_answer,subject
+What is the size of int in Java?,2 bytes,4 bytes,8 bytes,Depends on system,B,java
+Which keyword is used to inherit a class in Java?,this,extends,implements,super,B,java
+Which method is the entry point of a Java program?,start(),main(),run(),execute(),B,java
+Which operator is used for comparison in Java?,=,==,equals,!=,B,java
+Which exception is thrown when dividing by zero in Java?,NullPointerException,ArithmeticException,NumberFormatException,IOException,B,java
