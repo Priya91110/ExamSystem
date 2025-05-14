@@ -150,7 +150,12 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Question
 
-# @login_required
+
+import csv
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .models import Question
+
 def upload_questions_view(request):
     if request.method == 'POST' and request.FILES.get('csv_file'):
         csv_file = request.FILES['csv_file']
@@ -160,21 +165,31 @@ def upload_questions_view(request):
             messages.error(request, 'Please upload a CSV file.')
             return redirect('upload_questions')
 
-        decoded_file = csv_file.read().decode('utf-8').splitlines()
-        reader = csv.DictReader(decoded_file)
+        try:
+            # Decode and read the CSV file
+            decoded_file = csv_file.read().decode('utf-8').splitlines()
+            reader = csv.DictReader(decoded_file)
 
-        for row in reader:
-            Question.objects.create(
-                subject=subject,
-                text=row['text'],
-                option_a=row['option_a'],
-                option_b=row['option_b'],
-                option_c=row['option_c'],
-                option_d=row['option_d'],
-                correct_answer=row['correct_answer'].upper()
-            )
+            # Delete existing questions for the selected subject
+            Question.objects.filter(subject__iexact=subject).delete()
 
-        messages.success(request, 'Questions uploaded successfully!')
-        return redirect('home')
+            # Create new questions from CSV
+            for row in reader:
+                Question.objects.create(
+                    subject=subject,
+                    text=row['text'],
+                    option_a=row['option_a'],
+                    option_b=row['option_b'],
+                    option_c=row['option_c'],
+                    option_d=row['option_d'],
+                    correct_answer=row['correct_answer'].strip().upper()
+                )
+
+            messages.success(request, f'Questions for subject "{subject}" uploaded successfully!')
+            return redirect('home')
+
+        except Exception as e:
+            messages.error(request, f"Error processing file: {e}")
+            return redirect('upload_questions')
 
     return render(request, 'app1/upload_questions.html')
